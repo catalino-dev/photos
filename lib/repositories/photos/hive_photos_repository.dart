@@ -31,6 +31,13 @@ class HivePhotosRepository implements AbstractRepository<Photos> {
     return await this.cache.getAll();
   }
 
+  Future<List<Photos>> search(String term) async {
+    List<Photos> photos = await this.cache.getAll();
+    List<Photos> searchResults = photos
+        .where((element) => element.caption.toLowerCase().contains(term.toLowerCase())).toList();
+    return searchResults;
+  }
+
   @override
   Future<void> update(dynamic id, Photos photo) async {
     return await this.cache.update(id, photo);

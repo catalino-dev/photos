@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:photos/model/collection.dart';
 import 'package:photos/model/model.dart';
-import 'package:photos/place.dart';
 import 'package:photos/repositories/abstract_repository.dart';
 import 'package:photos/screen/image_view.dart';
 import 'package:photos/screen/search_view.dart';
@@ -20,6 +19,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   PhotosBloc _photosBloc;
+  PhotoSearchBloc _photoSearchBloc;
   CollectionBloc _collectionBloc;
   TextEditingController searchController = new TextEditingController();
   List<Collection> collections = List();
@@ -32,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     _photosBloc.close();
+    _photoSearchBloc.close();
     _collectionBloc.close();
     super.dispose();
   }
@@ -47,6 +48,10 @@ class _HomeScreenState extends State<HomeScreen> {
       final photosRepository = RepositoryProvider.of<AbstractRepository<Photos>>(context);
       this._photosBloc = PhotosBloc(photosRepository: photosRepository)
         ..add(LoadPhotos());
+
+      if (this._photoSearchBloc == null) {
+        this._photoSearchBloc = PhotoSearchBloc(photosRepository: photosRepository);
+      }
     }
     super.didChangeDependencies();
   }
@@ -76,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: TextField(
                         controller: searchController,
                         decoration: InputDecoration(
-                          hintText: "Search Photos",
+                          hintText: "Search Photos by Name",
                           border: InputBorder.none
                         ),
                       )
@@ -85,13 +90,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       onTap: () {
                         if (searchController.text != "") {
                           Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                SearchView(
-                                  search: searchController.text,
-                                )
-                            )
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                  SearchView(
+                                    photoSearchBloc: this._photoSearchBloc,
+                                    search: searchController.text,
+                                  )
+                              )
                           );
                         }
                       },
@@ -114,7 +120,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         );
                       } else if (state is CollectionLoaded) {
                         collections = state.collections;
-                        print('Increasing collection: ${collections.length}');
                         return Container(
                           height: 80,
                           child: ListView.builder(
@@ -182,7 +187,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> showPhoto(CollectionBloc collectionBloc, Photos photo) async {
-    print('ADDING TO CL: ${collections.length}');
     if (collectionBloc != null) {
       Navigator.push(
           context,
@@ -214,75 +218,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
     if (result != null && result.files.first != null) {
       PlatformFile file = result.files.first;
-      print('>>>>>>>>>>>>>>>>>>>>>>>>>>>> ADDING PHOTO: ${file.name}');
       _photosBloc.add(
         AddPhoto(Photos(caption: file.name, sourceBytes: file.bytes)),
       );
     }
-  }
-
-  Widget placeContainer(Place place) {
-    return Card(
-      child: Column(
-        children: <Widget>[
-          Expanded(
-            child: Stack(children: <Widget>[
-              Container(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
-                  height: 260.0,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage(place.placeImage)))
-              ),
-              Container(
-                alignment: Alignment.topLeft,
-                child: Container(
-                  width: 80.0,
-                  height: 60.0,
-                  color: Color(0xffFFC917),
-                  child: Align(alignment: Alignment.center,
-                    child: Text(place.placePrice, style: TextStyle(color: Color(
-                        0xff003082), fontSize: 30.0)),),
-                ),
-              )
-            ],),),
-          ListTile(
-            title: Align(
-              alignment: Alignment.center,
-              child: Text(
-                place.placeName,
-                style: TextStyle(color: Color(0xffEA3556),
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold),
-              ),
-            ),
-            subtitle: Column(
-              children: <Widget>[
-                Text(
-                  place.placeDetails,
-                  style: TextStyle(fontSize: 14.0, color: Colors.black),
-                ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: RaisedButton(
-                    onPressed: () {},
-                    textColor: Colors.white,
-                    color: Color(0xffEA3556),
-                    child: new Text(
-                      "Book",
-                    ),
-                  ),
-                ),
-              ],
-            )
-          ),
-        ],
-      ),
-    );
   }
 }
 

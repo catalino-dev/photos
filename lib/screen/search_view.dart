@@ -1,11 +1,18 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:photos/blocs/blocs.dart';
 import 'package:photos/model/model.dart';
+import 'package:photos/widgets/display_photos.dart';
 
 class SearchView extends StatefulWidget {
+  final PhotoSearchBloc photoSearchBloc;
   final String search;
 
-  SearchView({@required this.search});
+  SearchView({
+    @required this.photoSearchBloc,
+    @required this.search,
+  });
 
   @override
   _SearchViewState createState() => _SearchViewState();
@@ -15,29 +22,12 @@ class _SearchViewState extends State<SearchView> {
   List<Photos> gallery = new List();
   TextEditingController searchController = new TextEditingController();
 
-  // getSearchWallpaper(String searchQuery) async {
-  //   await http.get(
-  //       "https://api.pexels.com/v1/search?query=$searchQuery&per_page=30&page=1",
-  //       headers: {"Authorization": apiKEY}).then((value) {
-  //     //print(value.body);
-  //
-  //     Map<String, dynamic> jsonData = jsonDecode(value.body);
-  //     jsonData["photos"].forEach((element) {
-  //       //print(element);
-  //       Photos photos = new Photos();
-  //       photos = Photos.fromJson(element);
-  //       gallery.add(photos);
-  //       //print(photosModel.toString()+ "  "+ photosModel.src.portrait);
-  //     });
-  //
-  //     setState(() {});
-  //   });
-  // }
-
   @override
   void initState() {
-    // getSearchWallpaper(widget.search);
     searchController.text = widget.search;
+    widget.photoSearchBloc.add(
+      TextChanged(text: widget.search),
+    );
     super.initState();
   }
 
@@ -74,12 +64,13 @@ class _SearchViewState extends State<SearchView> {
                 child: Row(
                   children: <Widget>[
                     Expanded(
-                        child: TextField(
+                      child: TextField(
                       controller: searchController,
                       decoration: InputDecoration(
-                          hintText: "search wallpapers",
-                          border: InputBorder.none),
-                    )),
+                        hintText: "Search Photos by Name",
+                        border: InputBorder.none)
+                      )
+                    ),
                     InkWell(
                         onTap: () {
 
@@ -90,6 +81,23 @@ class _SearchViewState extends State<SearchView> {
               ),
               SizedBox(
                 height: 30,
+              ),
+              BlocBuilder<PhotoSearchBloc, PhotoSearchState>(
+                  cubit: widget.photoSearchBloc,
+                  builder: (context, state) {
+                    if (state is SearchStateLoading) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (state is SearchStateSuccess) {
+
+                      return DisplayPhotos(
+                          photos: state.results
+                      );
+                    } else {
+                      return Container();
+                    }
+                  }
               ),
             ],
           ),
