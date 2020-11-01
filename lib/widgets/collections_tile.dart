@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:photos/blocs/blocs.dart';
-import 'package:photos/model/model.dart';
+import 'package:photos/models/models.dart';
 import 'package:photos/screen/collections_screen.dart';
 import 'package:photos/widgets/custom_dialog.dart';
 import 'package:photos/widgets/extra_actions.dart';

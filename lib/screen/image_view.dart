@@ -8,7 +8,7 @@ import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:photos/model/model.dart';
+import 'package:photos/models/models.dart';
 
 typedef AddToCollection = Function();
 

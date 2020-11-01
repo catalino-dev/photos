@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:photos/blocs/photos/photos_event.dart';
 import 'package:photos/blocs/photos/photos_state.dart';
-import 'package:photos/model/model.dart';
+import 'package:photos/models/models.dart';
 import 'package:photos/repositories/abstract_repository.dart';
 
 class PhotosBloc extends Bloc<PhotosEvent, PhotosState> {

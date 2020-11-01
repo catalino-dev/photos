@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:meta/meta.dart';
 import 'package:hive/hive.dart';
+import 'package:meta/meta.dart';
 
 part 'photos.g.dart';
 
@@ -14,23 +14,23 @@ class Photos extends HiveObject {
   final Uint8List sourceBytes;
 
   @HiveField(2)
-  final String source;
+  final String sourceUrl;
 
   Photos({
     @required this.caption,
     @required this.sourceBytes,
-    this.source,
+    @required this.sourceUrl,
   });
 
   factory Photos.fromJson(Map<String, dynamic> json) => Photos(
     caption: json["caption"],
     sourceBytes: json["sourceBytes"],
-    source: json["source"],
+    sourceUrl: json["source"],
   );
 
   Map<String, dynamic> toJson() => {
     "caption": caption,
     "sourceBytes": sourceBytes,
-    "source": source,
+    "source": sourceUrl,
   };
 }

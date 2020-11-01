@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 import 'package:hive/hive.dart';
-import 'package:photos/model/model.dart';
+import 'package:meta/meta.dart';
+import 'package:photos/models/models.dart';
 
 part 'collection.g.dart';
 

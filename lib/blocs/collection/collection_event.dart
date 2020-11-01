@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:photos/model/collection.dart';
-import 'package:photos/model/model.dart';
+import 'package:photos/models/models.dart';
 
 abstract class CollectionEvent extends Equatable {
   const CollectionEvent();

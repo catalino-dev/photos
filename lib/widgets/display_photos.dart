@@ -1,5 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:photos/model/model.dart';
+import 'package:photos/models/models.dart';
 
 typedef AddToCollectionCallback = Function(Photos photo);
 
@@ -17,7 +18,7 @@ class DisplayPhotos extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: GridView.count(
-        crossAxisCount: 2,
+        crossAxisCount: kIsWeb ? 5 : 2,
         childAspectRatio: 0.6,
         physics: ClampingScrollPhysics(),
         shrinkWrap: true,

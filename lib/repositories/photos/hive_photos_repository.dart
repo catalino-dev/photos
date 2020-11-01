@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:photos/model/model.dart';
+import 'package:photos/models/models.dart';
 import 'package:photos/repositories/abstract_repository.dart';
 
 class HivePhotosRepository implements AbstractRepository<Photos> {

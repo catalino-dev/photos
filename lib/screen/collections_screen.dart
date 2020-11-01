@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:photos/model/model.dart';
+import 'package:photos/models/models.dart';
 import 'package:photos/widgets/display_photos.dart';
 
 class CollectionsScreen extends StatefulWidget {

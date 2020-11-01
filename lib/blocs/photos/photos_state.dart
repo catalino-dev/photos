@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-
-import '../../model/photos.dart';
+import 'package:photos/models/models.dart';
 
 @immutable
 abstract class PhotosState extends Equatable {

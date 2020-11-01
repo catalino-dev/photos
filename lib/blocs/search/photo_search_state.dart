@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:photos/model/model.dart';
+import 'package:photos/models/models.dart';
 
 abstract class PhotoSearchState extends Equatable {
   const PhotoSearchState();
