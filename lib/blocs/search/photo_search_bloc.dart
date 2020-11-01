@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:photos/blocs/blocs.dart';
-import 'package:photos/model/model.dart';
+import 'package:photos/models/models.dart';
 import 'package:photos/repositories/abstract_repository.dart';
 import 'package:photos/repositories/photos/hive_photos_repository.dart';
 

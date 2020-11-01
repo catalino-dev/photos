@@ -3,8 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:photos/blocs/blocs.dart';
-import 'package:photos/model/collection.dart';
-import 'package:photos/model/model.dart';
+import 'package:photos/models/models.dart';
 import 'package:photos/repositories/abstract_repository.dart';
 
 class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {

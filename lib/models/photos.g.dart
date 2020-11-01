@@ -19,7 +19,7 @@ class PhotosAdapter extends TypeAdapter<Photos> {
     return Photos(
       caption: fields[0] as String,
       sourceBytes: fields[1] as Uint8List,
-      source: fields[2] as String,
+      sourceUrl: fields[2] as String,
     );
   }
 
@@ -32,7 +32,7 @@ class PhotosAdapter extends TypeAdapter<Photos> {
       ..writeByte(1)
       ..write(obj.sourceBytes)
       ..writeByte(2)
-      ..write(obj.source);
+      ..write(obj.sourceUrl);
   }
 
   @override

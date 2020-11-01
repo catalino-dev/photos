@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photos/blocs/blocs.dart';
 import 'package:photos/widgets/display_photos.dart';
-import 'package:photos/widgets/widget.dart';
 
 class GalleryView extends StatefulWidget {
   final PhotosBloc photosBloc;

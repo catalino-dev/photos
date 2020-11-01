@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:photos/model/collection.dart';
+import 'package:photos/models/collection.dart';
 
 @immutable
 abstract class CollectionState extends Equatable {

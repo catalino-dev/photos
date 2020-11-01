@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:photos/home_screen.dart';
-import 'package:photos/model/model.dart';
+import 'package:photos/models/models.dart';
 import 'package:photos/repositories/abstract_repository.dart';
 import 'package:photos/repositories/collection/hive_collection_repository.dart';
 import 'package:photos/repositories/hive_repository.dart';

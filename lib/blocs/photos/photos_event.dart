@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:photos/model/photos.dart';
+import 'package:photos/models/photos.dart';
 
 abstract class PhotosEvent extends Equatable {
   const PhotosEvent();
